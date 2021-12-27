@@ -1,0 +1,27 @@
+version: '3.3'
+
+services: 
+  db:
+    image: mysql:5.7
+    restart: always
+    environment:
+      MYSQL_DATABASE: "kamaldb"
+      MYSQL_ROOT_PASSWORD: "kamaldbpass"
+      MYSQL_USER: "kamaldbuser"
+      MYSQL_PASSWORD: "kamaldbpass"
+
+    ports:
+      - 3306:3306
+    expose:
+      - 3306
+  web:
+    build: Python-djengo-backend    
+    command: python3 manage.py runserver 0.0.0.0:8000
+    ports:
+      - "8000:8000"
+
+  app:
+    build: angular-frontend
+    ports:
+      - "8181:80"
+
